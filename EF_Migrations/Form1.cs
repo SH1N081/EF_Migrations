@@ -22,26 +22,38 @@ namespace EF_Migrations
 
         #region FUNCTIONS
 
-        public void doRestore(ProcessStartInfo psi)
+        public void doRestore()
         {
+            Migration m = new Migration()
+            {
 
+            };
         }
 
-        public void doMigration(ProcessStartInfo psi)
+        public void doMigration()
         {
+            Migration m = new Migration()
+            {
 
+            };
         }
 
-        public void doUpdate(ProcessStartInfo psi)
+        public void doUpdate()
         {
+            Migration m = new Migration()
+            {
 
+            };
         }
 
         #endregion FUNCTIONS
 
         #region EVENTS
 
-
+        void p_OutputDataReceived(object sender, DataReceivedEventArgs e)
+        {
+            Console.Write(e.Data);
+        }
 
         #endregion EVENTS
     }
