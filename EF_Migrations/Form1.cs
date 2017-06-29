@@ -55,6 +55,7 @@ namespace EF_Migrations
             tboxMigrationName.Text = "";
             chboxRestore.Checked = false;
             chboxUpdate.Checked = false;
+            rtboxOutput.Text = "Console output >>";
         }
 
         public void checkMainAction()

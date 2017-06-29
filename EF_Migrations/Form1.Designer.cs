@@ -158,13 +158,15 @@
             // rtboxOutput
             // 
             this.rtboxOutput.BackColor = System.Drawing.Color.Black;
+            this.rtboxOutput.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.rtboxOutput.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtboxOutput.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.rtboxOutput.Location = new System.Drawing.Point(13, 235);
             this.rtboxOutput.Name = "rtboxOutput";
+            this.rtboxOutput.ReadOnly = true;
             this.rtboxOutput.Size = new System.Drawing.Size(447, 337);
             this.rtboxOutput.TabIndex = 8;
-            this.rtboxOutput.Text = "";
+            this.rtboxOutput.Text = "Console output >>";
             // 
             // Form1
             // 
