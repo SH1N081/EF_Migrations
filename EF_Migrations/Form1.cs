@@ -67,6 +67,44 @@ namespace EF_Migrations
                     btnMainAction.Enabled = false;
                     btnMainAction.Text = "";
                 }
+                else if (chboxRestore.Checked && !chboxUpdate.Checked)
+                {
+                    btnMainAction.Enabled = true;
+                    btnMainAction.Text = "Restore dependencies";
+                }
+                else if (!chboxRestore.Checked && chboxUpdate.Checked)
+                {
+                    btnMainAction.Enabled = true;
+                    btnMainAction.Text = "Update EF database";
+                }
+                else if (chboxRestore.Checked && chboxUpdate.Checked)
+                {
+                    btnMainAction.Enabled = true;
+                    btnMainAction.Text = "Restore dependencies and update EF database";
+                }
+            }
+            else if (tboxMigrationName.Text != "")
+            {
+                if (!chboxRestore.Checked && !chboxUpdate.Checked)
+                {
+                    btnMainAction.Enabled = true;
+                    btnMainAction.Text = "Create migration";
+                }
+                else if (chboxRestore.Checked && !chboxUpdate.Checked)
+                {
+                    btnMainAction.Enabled = true;
+                    btnMainAction.Text = "Restore dependencies and create migration";
+                }
+                else if (!chboxRestore.Checked && chboxUpdate.Checked)
+                {
+                    btnMainAction.Enabled = true;
+                    btnMainAction.Text = "Create migration and update EF database";
+                }
+                else if (chboxRestore.Checked && chboxUpdate.Checked)
+                {
+                    btnMainAction.Enabled = true;
+                    btnMainAction.Text = "Restore dependencies, create migration and update EF database";
+                }
             }
         }
 
@@ -94,6 +132,7 @@ namespace EF_Migrations
         private void tbxProjectPath_TextChanged(object sender, EventArgs e)
         {
             checkClearAll();
+            checkMainAction();
 
             if (tbxProjectPath.Text == "")
             {
@@ -114,16 +153,19 @@ namespace EF_Migrations
         private void tboxMigrationName_TextChanged(object sender, EventArgs e)
         {
             checkClearAll();
+            checkMainAction();
         }
 
         private void chboxRestore_CheckedChanged(object sender, EventArgs e)
         {
             checkClearAll();
+            checkMainAction();
         }
 
         private void chboxUpdate_CheckedChanged(object sender, EventArgs e)
         {
             checkClearAll();
+            checkMainAction();
         }
         private void btnProjectPath_Click(object sender, EventArgs e)
         {
@@ -140,6 +182,10 @@ namespace EF_Migrations
         private void btnClearAll_Click(object sender, EventArgs e)
         {
             clearAll();
+        }
+        private void btnMainAction_Click(object sender, EventArgs e)
+        {
+
         }
 
         #endregion EVENTS

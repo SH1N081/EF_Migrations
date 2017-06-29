@@ -142,6 +142,7 @@
             this.btnMainAction.Size = new System.Drawing.Size(363, 23);
             this.btnMainAction.TabIndex = 6;
             this.btnMainAction.UseVisualStyleBackColor = false;
+            this.btnMainAction.Click += new System.EventHandler(this.btnMainAction_Click);
             // 
             // btnClearAll
             // 
