@@ -18,7 +18,7 @@ namespace EF_Migrations.Logic
 
             catch (Exception ex)
             {
-
+                System.Windows.Forms.MessageBox.Show(ex.Message);
             }
         }
     }

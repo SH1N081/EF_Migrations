@@ -57,23 +57,27 @@ namespace EF_Migrations
             chboxUpdate.Checked = false;
         }
 
-        public void checkButtonStatus()
+        public void checkMainAction()
         {
-            if (tbxProjectPath.Text == "")
+            if (tboxMigrationName.Text == "")
             {
-                btnMainAction.Enabled = false;
-                btnMainAction.Text = "";
-            }
-            else if (tbxProjectPath.Text != "")
-            {
-                if (tboxMigrationName.Text == "")
+                if (!chboxRestore.Checked && !chboxUpdate.Checked)
                 {
-                    if (!chboxRestore.Checked && !chboxUpdate.Checked)
-                    {
-                        btnMainAction.Enabled = false;
-                        btnMainAction.Text = "";
-                    }
+                    btnMainAction.Enabled = false;
+                    btnMainAction.Text = "";
                 }
+            }
+        }
+
+        public void checkClearAll()
+        {
+            if (tbxProjectPath.Text == "" && tboxMigrationName.Text == "" && !chboxRestore.Checked && !chboxUpdate.Checked)
+            {
+                btnClearAll.Enabled = false;
+            }
+            else if (tbxProjectPath.Text != "" || tboxMigrationName.Text != "" || chboxRestore.Checked || chboxUpdate.Checked)
+            {
+                btnClearAll.Enabled = true;
             }
         }
 
@@ -88,33 +92,37 @@ namespace EF_Migrations
 
         private void tbxProjectPath_TextChanged(object sender, EventArgs e)
         {
+            checkClearAll();
+
             if (tbxProjectPath.Text == "")
             {
                 tboxMigrationName.Enabled = false;
                 chboxRestore.Enabled = false;
                 chboxUpdate.Enabled = false;
+                btnMainAction.Enabled = false;
             }
             else if (tbxProjectPath.Text != "")
             {
                 tboxMigrationName.Enabled = true;
                 chboxRestore.Enabled = true;
                 chboxUpdate.Enabled = true;
+                btnMainAction.Enabled = true;
             }
         }
 
         private void tboxMigrationName_TextChanged(object sender, EventArgs e)
         {
-
+            checkClearAll();
         }
 
         private void chboxRestore_CheckedChanged(object sender, EventArgs e)
         {
-
+            checkClearAll();
         }
 
         private void chboxUpdate_CheckedChanged(object sender, EventArgs e)
         {
-
+            checkClearAll();
         }
         private void btnProjectPath_Click(object sender, EventArgs e)
         {
@@ -122,11 +130,15 @@ namespace EF_Migrations
             fbd.Description = "Select project folder";
             fbd.ShowNewFolderButton = false;
             fbd.RootFolder = Environment.SpecialFolder.MyComputer;
-            
+
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 tbxProjectPath.Text = fbd.SelectedPath;
             }
+        }
+        private void btnClearAll_Click(object sender, EventArgs e)
+        {
+            clearAll();
         }
 
         #endregion EVENTS

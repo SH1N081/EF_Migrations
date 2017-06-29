@@ -37,6 +37,7 @@
             this.chboxRestore = new System.Windows.Forms.CheckBox();
             this.chboxUpdate = new System.Windows.Forms.CheckBox();
             this.btnMainAction = new System.Windows.Forms.Button();
+            this.btnClearAll = new System.Windows.Forms.Button();
             this.gboxOptions.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -104,7 +105,7 @@
             this.gboxOptions.Size = new System.Drawing.Size(447, 50);
             this.gboxOptions.TabIndex = 5;
             this.gboxOptions.TabStop = false;
-            this.gboxOptions.Text = "Options";
+            this.gboxOptions.Text = "Other actions";
             // 
             // chboxRestore
             // 
@@ -135,11 +136,23 @@
             this.btnMainAction.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnMainAction.Enabled = false;
             this.btnMainAction.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.btnMainAction.Location = new System.Drawing.Point(12, 176);
+            this.btnMainAction.Location = new System.Drawing.Point(97, 176);
             this.btnMainAction.Name = "btnMainAction";
-            this.btnMainAction.Size = new System.Drawing.Size(448, 23);
+            this.btnMainAction.Size = new System.Drawing.Size(363, 23);
             this.btnMainAction.TabIndex = 6;
             this.btnMainAction.UseVisualStyleBackColor = false;
+            // 
+            // btnClearAll
+            // 
+            this.btnClearAll.Enabled = false;
+            this.btnClearAll.ForeColor = System.Drawing.Color.Black;
+            this.btnClearAll.Location = new System.Drawing.Point(12, 176);
+            this.btnClearAll.Name = "btnClearAll";
+            this.btnClearAll.Size = new System.Drawing.Size(82, 23);
+            this.btnClearAll.TabIndex = 7;
+            this.btnClearAll.Text = "Clear all fields";
+            this.btnClearAll.UseVisualStyleBackColor = true;
+            this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
             // 
             // Form1
             // 
@@ -147,6 +160,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(472, 584);
+            this.Controls.Add(this.btnClearAll);
             this.Controls.Add(this.btnMainAction);
             this.Controls.Add(this.gboxOptions);
             this.Controls.Add(this.tboxMigrationName);
@@ -179,6 +193,7 @@
         private System.Windows.Forms.CheckBox chboxUpdate;
         private System.Windows.Forms.CheckBox chboxRestore;
         private System.Windows.Forms.Button btnMainAction;
+        private System.Windows.Forms.Button btnClearAll;
     }
 }
 
