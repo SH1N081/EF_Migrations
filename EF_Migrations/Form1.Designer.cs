@@ -34,10 +34,11 @@
             this.lblMigrationName = new System.Windows.Forms.Label();
             this.tboxMigrationName = new System.Windows.Forms.TextBox();
             this.gboxOptions = new System.Windows.Forms.GroupBox();
-            this.chboxRestore = new System.Windows.Forms.CheckBox();
             this.chboxUpdate = new System.Windows.Forms.CheckBox();
+            this.chboxRestore = new System.Windows.Forms.CheckBox();
             this.btnMainAction = new System.Windows.Forms.Button();
             this.btnClearAll = new System.Windows.Forms.Button();
+            this.rtboxOutput = new System.Windows.Forms.RichTextBox();
             this.gboxOptions.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -107,18 +108,6 @@
             this.gboxOptions.TabStop = false;
             this.gboxOptions.Text = "Other actions";
             // 
-            // chboxRestore
-            // 
-            this.chboxRestore.AutoSize = true;
-            this.chboxRestore.Enabled = false;
-            this.chboxRestore.Location = new System.Drawing.Point(7, 21);
-            this.chboxRestore.Name = "chboxRestore";
-            this.chboxRestore.Size = new System.Drawing.Size(132, 17);
-            this.chboxRestore.TabIndex = 0;
-            this.chboxRestore.Text = "Restore dependencies";
-            this.chboxRestore.UseVisualStyleBackColor = true;
-            this.chboxRestore.CheckedChanged += new System.EventHandler(this.chboxRestore_CheckedChanged);
-            // 
             // chboxUpdate
             // 
             this.chboxUpdate.AutoSize = true;
@@ -130,6 +119,18 @@
             this.chboxUpdate.Text = "Update Database";
             this.chboxUpdate.UseVisualStyleBackColor = true;
             this.chboxUpdate.CheckedChanged += new System.EventHandler(this.chboxUpdate_CheckedChanged);
+            // 
+            // chboxRestore
+            // 
+            this.chboxRestore.AutoSize = true;
+            this.chboxRestore.Enabled = false;
+            this.chboxRestore.Location = new System.Drawing.Point(7, 21);
+            this.chboxRestore.Name = "chboxRestore";
+            this.chboxRestore.Size = new System.Drawing.Size(132, 17);
+            this.chboxRestore.TabIndex = 0;
+            this.chboxRestore.Text = "Restore dependencies";
+            this.chboxRestore.UseVisualStyleBackColor = true;
+            this.chboxRestore.CheckedChanged += new System.EventHandler(this.chboxRestore_CheckedChanged);
             // 
             // btnMainAction
             // 
@@ -154,12 +155,24 @@
             this.btnClearAll.UseVisualStyleBackColor = true;
             this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
             // 
+            // rtboxOutput
+            // 
+            this.rtboxOutput.BackColor = System.Drawing.Color.Black;
+            this.rtboxOutput.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtboxOutput.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.rtboxOutput.Location = new System.Drawing.Point(13, 235);
+            this.rtboxOutput.Name = "rtboxOutput";
+            this.rtboxOutput.Size = new System.Drawing.Size(447, 337);
+            this.rtboxOutput.TabIndex = 8;
+            this.rtboxOutput.Text = "";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(472, 584);
+            this.Controls.Add(this.rtboxOutput);
             this.Controls.Add(this.btnClearAll);
             this.Controls.Add(this.btnMainAction);
             this.Controls.Add(this.gboxOptions);
@@ -194,6 +207,7 @@
         private System.Windows.Forms.CheckBox chboxRestore;
         private System.Windows.Forms.Button btnMainAction;
         private System.Windows.Forms.Button btnClearAll;
+        private System.Windows.Forms.RichTextBox rtboxOutput;
     }
 }
 
