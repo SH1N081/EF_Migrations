@@ -39,6 +39,7 @@
             this.btnMainAction = new System.Windows.Forms.Button();
             this.btnClearAll = new System.Windows.Forms.Button();
             this.rtboxOutput = new System.Windows.Forms.RichTextBox();
+            this.btnClearOutput = new System.Windows.Forms.Button();
             this.gboxOptions.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,7 +67,7 @@
             // btnProjectPath
             // 
             this.btnProjectPath.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnProjectPath.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.btnProjectPath.ForeColor = System.Drawing.Color.Black;
             this.btnProjectPath.Location = new System.Drawing.Point(385, 30);
             this.btnProjectPath.Name = "btnProjectPath";
             this.btnProjectPath.Size = new System.Drawing.Size(75, 21);
@@ -168,6 +169,19 @@
             this.rtboxOutput.Size = new System.Drawing.Size(447, 337);
             this.rtboxOutput.TabIndex = 8;
             this.rtboxOutput.Text = "Console output >>";
+            this.rtboxOutput.TextChanged += new System.EventHandler(this.rtboxOutput_TextChanged);
+            // 
+            // btnClearOutput
+            // 
+            this.btnClearOutput.Enabled = false;
+            this.btnClearOutput.ForeColor = System.Drawing.Color.Black;
+            this.btnClearOutput.Location = new System.Drawing.Point(12, 206);
+            this.btnClearOutput.Name = "btnClearOutput";
+            this.btnClearOutput.Size = new System.Drawing.Size(82, 23);
+            this.btnClearOutput.TabIndex = 9;
+            this.btnClearOutput.Text = "Clear Output";
+            this.btnClearOutput.UseVisualStyleBackColor = true;
+            this.btnClearOutput.Click += new System.EventHandler(this.btnClearOutput_Click);
             // 
             // Form1
             // 
@@ -175,6 +189,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(472, 584);
+            this.Controls.Add(this.btnClearOutput);
             this.Controls.Add(this.rtboxOutput);
             this.Controls.Add(this.btnClearAll);
             this.Controls.Add(this.btnMainAction);
@@ -211,6 +226,7 @@
         private System.Windows.Forms.Button btnMainAction;
         private System.Windows.Forms.Button btnClearAll;
         private System.Windows.Forms.RichTextBox rtboxOutput;
+        private System.Windows.Forms.Button btnClearOutput;
     }
 }
 

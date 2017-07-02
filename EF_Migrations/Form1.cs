@@ -120,6 +120,18 @@ namespace EF_Migrations
             }
         }
 
+        public void checkClearOutput()
+        {
+            if (rtboxOutput.Text != "Console output >>")
+            {
+                btnClearOutput.Enabled = true;
+            }
+            else if (rtboxOutput.Text == "Console output >>")
+            {
+                btnClearOutput.Enabled = false;
+            }
+        }
+
         #endregion FUNCTIONS
 
         #region EVENTS
@@ -183,9 +195,19 @@ namespace EF_Migrations
         {
             clearAll();
         }
+
+        private void btnClearOutput_Click(object sender, EventArgs e)
+        {
+            rtboxOutput.Text = "Console output >>";
+        }
+
         private void btnMainAction_Click(object sender, EventArgs e)
         {
 
+        }
+        private void rtboxOutput_TextChanged(object sender, EventArgs e)
+        {
+            checkClearOutput();
         }
 
         #endregion EVENTS
