@@ -26,27 +26,37 @@ namespace EF_Migrations
             Migration m = new Migration()
             {
                 ProjectPath = tbxProjectPath.Text,
-                StartInfo = new ProcessStartInfo()
+                Command = new ProcessStartInfo()
                 {
-
+                    Arguments = "dotnet restore"
                 }
             };
+            executeCommandSync(m.Command);
         }
 
         public void doMigration()
         {
             Migration m = new Migration()
             {
-
+                ProjectPath = tbxProjectPath.Text,
+                MigrationName = tboxMigrationName.Text,
+                Command = new ProcessStartInfo()
             };
+            m.Command.Arguments = "dotnet ef migrations add " + m.MigrationName;
+            executeCommandSync(m.Command);
         }
 
         public void doUpdate()
         {
             Migration m = new Migration()
             {
-
+                ProjectPath = tbxProjectPath.Text,
+                Command = new ProcessStartInfo()
+                {
+                    Arguments = "dotnet ef database update"
+                }
             };
+            executeCommandSync(m.Command);
         }
 
         public void clearAll()
@@ -159,13 +169,21 @@ namespace EF_Migrations
                 );
         }
 
-        public void ExecuteCommandSync(ProcessStartInfo psi)
+        public void executeCommandSync(ProcessStartInfo psi)
         {
-            Process p = new Process()
+            Process p = new Process();
+            p.StartInfo = new ProcessStartInfo()
             {
-                StartInfo = psi,
-                //CONTINUE HERE
-            };
+                RedirectStandardInput = true,
+                RedirectStandardOutput = true,
+                FileName = "cmd.exe",
+                Arguments = psi.Arguments
+            };            
+            p.OutputDataReceived += p_OutputDataReceived;
+            p.Start();
+            p.BeginOutputReadLine();
+            p.WaitForExit();
+            p.Close();
         }
 
         #endregion FUNCTIONS
@@ -178,7 +196,10 @@ namespace EF_Migrations
 
         void p_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            rtboxOutput.Text = e.Data;
+            if (!string.IsNullOrEmpty(e.Data))
+            {
+                rtboxOutput.Text = e.Data;
+            }
         }
 
         private void tbxProjectPath_TextChanged(object sender, EventArgs e)
@@ -226,6 +247,7 @@ namespace EF_Migrations
             checkClearAll();
             checkMainAction();
         }
+
         private void btnProjectPath_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();
@@ -238,6 +260,7 @@ namespace EF_Migrations
                 tbxProjectPath.Text = fbd.SelectedPath;
             }
         }
+
         private void btnClearAll_Click(object sender, EventArgs e)
         {
             clearAll();
@@ -245,13 +268,18 @@ namespace EF_Migrations
 
         private void btnClearOutput_Click(object sender, EventArgs e)
         {
+            rtboxOutput.Clear();
             rtboxOutput.Text = "Console output >>";
         }
 
         private void btnMainAction_Click(object sender, EventArgs e)
         {
+            if (btnMainAction.Text == "Restore dependencies")
+            {
 
+            }
         }
+
         private void rtboxOutput_TextChanged(object sender, EventArgs e)
         {
             checkClearOutput();

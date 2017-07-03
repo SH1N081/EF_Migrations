@@ -11,6 +11,6 @@ namespace EF_Migrations.Data
     {
         public string ProjectPath { get; set; }
         public string MigrationName { get; set; }
-        public ProcessStartInfo StartInfo { get; set; }
+        public ProcessStartInfo Command { get; set; }
     }
 }
