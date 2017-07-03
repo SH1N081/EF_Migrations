@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using EF_Migrations.Data;
-using EF_Migrations.Logic;
 
 namespace EF_Migrations
 {
@@ -24,16 +23,18 @@ namespace EF_Migrations
 
         public void doRestore()
         {
-            Functions f = new Functions();
             Migration m = new Migration()
             {
+                ProjectPath = tbxProjectPath.Text,
+                StartInfo = new ProcessStartInfo()
+                {
 
+                }
             };
         }
 
         public void doMigration()
         {
-            Functions f = new Functions();
             Migration m = new Migration()
             {
 
@@ -42,7 +43,6 @@ namespace EF_Migrations
 
         public void doUpdate()
         {
-            Functions f = new Functions();
             Migration m = new Migration()
             {
 
@@ -140,23 +140,32 @@ namespace EF_Migrations
                 "All actions require a project path to be selected - either input manually or by using the browse function.\r\n" +
                 "\r\n" +
                 "RESTORE DEPENDENCIES\r\n" +
-                "To restore dependencies, check the corresponding box and click on the button 'Restore dependencies'.\r\n" +
+                "To restore dependencies, check the corresponding box and click on the button \"Restore dependencies\".\r\n" +
                 "\r\n" +
                 "UPDATE DATABASE\r\n" +
-                "To update the database, check the corresponding box and click on the button 'Update database'.\r\n" +
+                "To update the database, check the corresponding box and click on the button \"Update database\".\r\n" +
                 "\r\n" +
-                "PERFORM MIGRATION\r\n" +
-                "If a migration name is entered in the text box, a migration will be performed.\r\n" +
+                "CREATE MIGRATION\r\n" +
+                "If a migration name is entered in the text box, a migration will be created.\r\n" +
                 "\r\n" +
                 "COMBINATIONS\r\n" +
-                "All 3 actions may be combined in any way. IMPORTANT: if a migration name is entered, a migration will always be performed.\r\n" +
+                "All 3 actions may be combined in any way. IMPORTANT: if a migration name is entered, a migration will always be created.\r\n" +
                 "Text on the button will change to reflect the currently selected actions.\r\n" +
                 "\r\n" +
-                "This help file may be accessed at any time via the button '?' in the top right corner of the application window.",
+                "This help file may be accessed at any time via the button \"?\" in the top right corner of the application window.",
                 "Getting started",
                 MessageBoxButtons.OK,
                 MessageBoxIcon.Information
                 );
+        }
+
+        public void ExecuteCommandSync(ProcessStartInfo psi)
+        {
+            Process p = new Process()
+            {
+                StartInfo = psi,
+                //CONTINUE HERE
+            };
         }
 
         #endregion FUNCTIONS
@@ -169,7 +178,7 @@ namespace EF_Migrations
 
         void p_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
-            Console.Write(e.Data);
+            rtboxOutput.Text = e.Data;
         }
 
         private void tbxProjectPath_TextChanged(object sender, EventArgs e)
