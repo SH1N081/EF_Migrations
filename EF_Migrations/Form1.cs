@@ -132,9 +132,40 @@ namespace EF_Migrations
             }
         }
 
+        public void showHelp()
+        {
+            MessageBox.Show(
+                "This is a simple application for performing .NET Entity Framework Migrations.\r\n" +
+                "3 actions affiliated with database migration can be performed in combination or separately.\r\n" +
+                "All actions require a project path to be selected - either input manually or by using the browse function.\r\n" +
+                "\r\n" +
+                "RESTORE DEPENDENCIES\r\n" +
+                "To restore dependencies, check the corresponding box and click on the button 'Restore dependencies'.\r\n" +
+                "\r\n" +
+                "UPDATE DATABASE\r\n" +
+                "To update the database, check the corresponding box and click on the button 'Update database'.\r\n" +
+                "\r\n" +
+                "PERFORM MIGRATION\r\n" +
+                "If a migration name is entered in the text box, a migration will be performed.\r\n" +
+                "\r\n" +
+                "COMBINATIONS\r\n" +
+                "All 3 actions may be combined in any way. IMPORTANT: if a migration name is entered, a migration will always be performed.\r\n" +
+                "Text on the button will change to reflect the currently selected actions.\r\n" +
+                "\r\n" +
+                "This help file may be accessed at any time via the button '?' in the top right corner of the application window.",
+                "Getting started",
+                MessageBoxButtons.OK,
+                MessageBoxIcon.Information
+                );
+        }
+
         #endregion FUNCTIONS
 
         #region EVENTS
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            showHelp();
+        }
 
         void p_OutputDataReceived(object sender, DataReceivedEventArgs e)
         {
@@ -158,7 +189,14 @@ namespace EF_Migrations
                 tboxMigrationName.Enabled = true;
                 chboxRestore.Enabled = true;
                 chboxUpdate.Enabled = true;
-                btnMainAction.Enabled = true;
+                if (tboxMigrationName.Text != "" || chboxRestore.Checked || chboxUpdate.Checked)
+                {
+                    btnMainAction.Enabled = true;
+                }
+                else if (tboxMigrationName.Text == "" && !chboxRestore.Checked && !chboxUpdate.Checked)
+                {
+                    btnMainAction.Enabled = false;
+                }
             }
         }
 
@@ -208,6 +246,10 @@ namespace EF_Migrations
         private void rtboxOutput_TextChanged(object sender, EventArgs e)
         {
             checkClearOutput();
+        }
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            showHelp();
         }
 
         #endregion EVENTS

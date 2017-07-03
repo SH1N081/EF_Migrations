@@ -40,6 +40,7 @@
             this.btnClearAll = new System.Windows.Forms.Button();
             this.rtboxOutput = new System.Windows.Forms.RichTextBox();
             this.btnClearOutput = new System.Windows.Forms.Button();
+            this.btnHelp = new System.Windows.Forms.Button();
             this.gboxOptions.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -183,12 +184,24 @@
             this.btnClearOutput.UseVisualStyleBackColor = true;
             this.btnClearOutput.Click += new System.EventHandler(this.btnClearOutput_Click);
             // 
+            // btnHelp
+            // 
+            this.btnHelp.ForeColor = System.Drawing.Color.Black;
+            this.btnHelp.Location = new System.Drawing.Point(437, 3);
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.Size = new System.Drawing.Size(23, 23);
+            this.btnHelp.TabIndex = 10;
+            this.btnHelp.Text = "?";
+            this.btnHelp.UseVisualStyleBackColor = true;
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(472, 584);
+            this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.btnClearOutput);
             this.Controls.Add(this.rtboxOutput);
             this.Controls.Add(this.btnClearAll);
@@ -206,6 +219,7 @@
             this.MinimizeBox = false;
             this.Name = "Form1";
             this.Text = ".NET Entity Framework Migrations";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.gboxOptions.ResumeLayout(false);
             this.gboxOptions.PerformLayout();
             this.ResumeLayout(false);
@@ -227,6 +241,7 @@
         private System.Windows.Forms.Button btnClearAll;
         private System.Windows.Forms.RichTextBox rtboxOutput;
         private System.Windows.Forms.Button btnClearOutput;
+        private System.Windows.Forms.Button btnHelp;
     }
 }
 
