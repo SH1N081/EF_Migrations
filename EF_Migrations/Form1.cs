@@ -14,51 +14,15 @@ namespace EF_Migrations
 {
     public partial class Form1 : Form
     {
+        Migration m = new Migration();
+
         public Form1()
         {
             InitializeComponent();
         }
 
         #region FUNCTIONS
-
-        public void doRestore()
-        {
-            Migration m = new Migration()
-            {
-                ProjectPath = tbxProjectPath.Text,
-                Command = new ProcessStartInfo()
-                {
-                    Arguments = "dotnet restore"
-                }
-            };
-            executeCommandSync(m.Command);
-        }
-
-        public void doMigration()
-        {
-            Migration m = new Migration()
-            {
-                ProjectPath = tbxProjectPath.Text,
-                MigrationName = tboxMigrationName.Text,
-                Command = new ProcessStartInfo()
-            };
-            m.Command.Arguments = "dotnet ef migrations add " + m.MigrationName;
-            executeCommandSync(m.Command);
-        }
-
-        public void doUpdate()
-        {
-            Migration m = new Migration()
-            {
-                ProjectPath = tbxProjectPath.Text,
-                Command = new ProcessStartInfo()
-                {
-                    Arguments = "dotnet ef database update"
-                }
-            };
-            executeCommandSync(m.Command);
-        }
-
+        
         public void clearAll()
         {
             tbxProjectPath.Text = "";
@@ -74,6 +38,8 @@ namespace EF_Migrations
             {
                 if (!chboxRestore.Checked && !chboxUpdate.Checked)
                 {
+                    m.ProjectPath = tbxProjectPath.Text;
+                    m.MigrationName = "";
                     btnMainAction.Enabled = false;
                     btnMainAction.Text = "";
                 }
@@ -169,21 +135,21 @@ namespace EF_Migrations
                 );
         }
 
-        public void executeCommandSync(ProcessStartInfo psi)
+        public void executeCommandSync(Process process)
         {
-            Process p = new Process();
-            p.StartInfo = new ProcessStartInfo()
+            try
             {
-                RedirectStandardInput = true,
-                RedirectStandardOutput = true,
-                FileName = "cmd.exe",
-                Arguments = psi.Arguments
-            };            
-            p.OutputDataReceived += p_OutputDataReceived;
-            p.Start();
-            p.BeginOutputReadLine();
-            p.WaitForExit();
-            p.Close();
+                Process p = process;
+                p.OutputDataReceived += p_OutputDataReceived;
+                p.Start();
+                p.BeginOutputReadLine();
+                p.WaitForExit();
+                p.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         #endregion FUNCTIONS
@@ -274,10 +240,7 @@ namespace EF_Migrations
 
         private void btnMainAction_Click(object sender, EventArgs e)
         {
-            if (btnMainAction.Text == "Restore dependencies")
-            {
-
-            }
+            
         }
 
         private void rtboxOutput_TextChanged(object sender, EventArgs e)

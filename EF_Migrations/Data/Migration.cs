@@ -11,6 +11,31 @@ namespace EF_Migrations.Data
     {
         public string ProjectPath { get; set; }
         public string MigrationName { get; set; }
-        public ProcessStartInfo Command { get; set; }
+        public int Action { get; set; }
+        public string Command { get; set; }
+
+        enum actions
+        {
+            None,
+            Restore,
+            Migrate,
+            RestoreMigrate,
+            RestoreUpdate,
+            RestoreMigrateUpdate,
+            MigrateUpdate,
+            Update
+        };
+
+        //Add definitions for the different commands
+
+        public Process createProcess()
+        {
+            Process p = new Process();
+            p.StartInfo = new ProcessStartInfo()
+            {
+
+            };
+            return p;
+        }
     }
 }
