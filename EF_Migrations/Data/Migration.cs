@@ -28,7 +28,7 @@ namespace EF_Migrations.Data
 
         //Add definitions for the different commands
 
-        public Process createProcess()
+        public Process createProcess(string command)
         {
             Process p = new Process();
             p.StartInfo = new ProcessStartInfo()
