@@ -34,35 +34,37 @@ namespace EF_Migrations
 
         public void checkMainAction()
         {
-            if (tboxMigrationName.Text == "")
+            if (string.IsNullOrEmpty(tboxMigrationName.Text))
             {
                 if (!chboxRestore.Checked && !chboxUpdate.Checked)
                 {
-                    m.ProjectPath = tbxProjectPath.Text;
-                    m.MigrationName = "";
                     btnMainAction.Enabled = false;
                     btnMainAction.Text = "";
                 }
                 else if (chboxRestore.Checked && !chboxUpdate.Checked)
                 {
+                    m.Action = (int)Migration.actions.Restore;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Restore dependencies";
                 }
                 else if (!chboxRestore.Checked && chboxUpdate.Checked)
                 {
+                    m.Action = (int)Migration.actions.Update;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Update EF database";
                 }
                 else if (chboxRestore.Checked && chboxUpdate.Checked)
                 {
+                    m.Action = (int)Migration.actions.RestoreUpdate;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Restore dependencies and update EF database";
                 }
             }
-            else if (tboxMigrationName.Text != "")
+            else if (!string.IsNullOrEmpty(tboxMigrationName.Text))
             {
                 if (!chboxRestore.Checked && !chboxUpdate.Checked)
                 {
+                    m.Action = (int)Migration.actions.Migrate;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Create migration";
                 }
