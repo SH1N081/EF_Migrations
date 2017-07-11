@@ -131,7 +131,7 @@ namespace EF_Migrations
                 "This help file may be accessed at any time via the button \"?\" in the top right corner of the application window.",
                 "Getting started",
                 MessageBoxButtons.OK,
-                MessageBoxIcon.Information
+                MessageBoxIcon.None
                 );
         }
 
