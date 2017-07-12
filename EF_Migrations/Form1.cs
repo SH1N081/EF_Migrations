@@ -70,16 +70,19 @@ namespace EF_Migrations
                 }
                 else if (chboxRestore.Checked && !chboxUpdate.Checked)
                 {
+                    m.Action = (int)Migration.actions.RestoreMigrate;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Restore dependencies and create migration";
                 }
                 else if (!chboxRestore.Checked && chboxUpdate.Checked)
                 {
+                    m.Action = (int)Migration.actions.MigrateUpdate;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Create migration and update EF database";
                 }
                 else if (chboxRestore.Checked && chboxUpdate.Checked)
                 {
+                    m.Action = (int)Migration.actions.RestoreMigrateUpdate;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Restore dependencies, create migration and update EF database";
                 }
