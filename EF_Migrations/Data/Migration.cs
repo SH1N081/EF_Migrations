@@ -102,6 +102,8 @@ namespace EF_Migrations.Data
                     RedirectStandardOutput = true,
                     RedirectStandardInput = true,
                     RedirectStandardError = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true,
                     FileName = "cmd.exe",
                     WorkingDirectory = ProjectPath,
                     Arguments = c

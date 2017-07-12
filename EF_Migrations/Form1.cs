@@ -15,6 +15,7 @@ namespace EF_Migrations
     public partial class Form1 : Form
     {
         Migration m = new Migration();
+        List<Process> pList = new List<Process>();
 
         public Form1()
         {
@@ -22,7 +23,7 @@ namespace EF_Migrations
         }
 
         #region FUNCTIONS
-        
+
         public void clearAll()
         {
             tbxProjectPath.Text = "";
@@ -140,16 +141,35 @@ namespace EF_Migrations
                 );
         }
 
-        public void executeCommandSync(Process process)
+        public void executeCommandAsync(Process process)
         {
             try
             {
                 Process p = process;
-                p.OutputDataReceived += p_OutputDataReceived;
+                p.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+                {
+                    if (!string.IsNullOrEmpty(e.Data))
+                    {
+                        rtboxOutput.Text = e.Data;
+                    }
+                });
+                p.ErrorDataReceived += new DataReceivedEventHandler((sender, e) =>
+                {
+                    if (!string.IsNullOrEmpty(e.Data))
+                    {
+                        MessageBox.Show(e.Data);
+                    }
+                });
+
                 p.Start();
+
                 p.BeginOutputReadLine();
+                p.BeginErrorReadLine();
+
                 p.WaitForExit();
                 p.Close();
+
+                
             }
             catch (Exception ex)
             {
@@ -164,15 +184,7 @@ namespace EF_Migrations
         {
             showHelp();
         }
-
-        void p_OutputDataReceived(object sender, DataReceivedEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(e.Data))
-            {
-                rtboxOutput.Text = e.Data;
-            }
-        }
-
+                
         private void tbxProjectPath_TextChanged(object sender, EventArgs e)
         {
             checkClearAll();
@@ -245,7 +257,11 @@ namespace EF_Migrations
 
         private void btnMainAction_Click(object sender, EventArgs e)
         {
-            
+            pList = m.createProcessList();
+            foreach (Process p in pList)
+            {
+                executeCommandAsync(p);
+            }
         }
 
         private void rtboxOutput_TextChanged(object sender, EventArgs e)
