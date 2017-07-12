@@ -146,6 +146,7 @@ namespace EF_Migrations
             try
             {
                 Process p = process;
+                p.EnableRaisingEvents = true;
                 p.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
                 {
                     if (!string.IsNullOrEmpty(e.Data))

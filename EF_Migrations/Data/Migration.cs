@@ -94,6 +94,7 @@ namespace EF_Migrations.Data
         {
             List<string> commands = _commands;
             List<Process> pList = new List<Process>();
+
             foreach (string c in commands)
             {
                 Process p = new Process();
