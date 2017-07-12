@@ -13,7 +13,7 @@ namespace EF_Migrations.Data
         public string MigrationName { get; set; }
         public int Action { get; set; }
 
-        private List<string> _commands
+        public List<string> Commands
         {
             get
             {
@@ -92,7 +92,7 @@ namespace EF_Migrations.Data
 
         public List<Process> createProcessList()
         {
-            List<string> commands = _commands;
+            
             List<Process> pList = new List<Process>();
 
             foreach (string c in commands)
