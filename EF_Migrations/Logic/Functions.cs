@@ -22,11 +22,70 @@ namespace EF_Migrations.Logic
             Update
         }
 
+        //CREATE COMMAND LIST
+        public List<Command> createCommandList(Transaction t)
+        {
+            List<Command> cList = new List<Command>();
+            Command restore = new Command()
+            {
+                Text = "dotnet restore"
+            };
+            Command migrate = new Command()
+            {
+                Text = "dotnet ef migrations add " + t.MigrationName
+            };
+            Command update = new Command()
+            {
+                Text = "dotnet ef database update"
+            };
+
+            switch (t.Action)
+            {
+                case (int)Actions.Restore:
+                    cList.Clear();
+                    cList.Add(restore);
+                    break;
+                case (int)Actions.Migrate:
+                    cList.Clear();
+                    cList.Add(migrate);
+                    break;
+                case (int)Actions.Update:
+                    cList.Clear();
+                    cList.Add(update);
+                    break;
+                case (int)Actions.RestoreMigrate:
+                    cList.Clear();
+                    cList.Add(restore);
+                    cList.Add(migrate);
+                    break;
+                case (int)Actions.RestoreUpdate:
+                    cList.Clear();
+                    cList.Add(restore);
+                    cList.Add(update);
+                    break;
+                case (int)Actions.RestoreMigrateUpdate:
+                    cList.Clear();
+                    cList.Add(restore);
+                    cList.Add(migrate);
+                    cList.Add(update);
+                    break;
+                case (int)Actions.MigrateUpdate:
+                    cList.Clear();
+                    cList.Add(migrate);
+                    cList.Add(update);
+                    break;
+                default:
+                    cList.Clear();
+                    break;
+            }
+            return cList;
+        }
+
         //CREATE PROCESS
         public Process createProcess(Command command)
         {
             Process p = new Process();
-            return p;            
+            return p;
         }
 
         //CREATE PROCESS LIST
@@ -36,18 +95,5 @@ namespace EF_Migrations.Logic
             return pList;
         }
 
-        //CREATE COMMAND
-        public Command createCommand(Transaction t)
-        {
-            Command c = new Command();
-            return c;
-        }
-
-        //CREATE COMMAND LIST
-        public List<Command> createCommandList(Transaction t)
-        {
-            List<Command> cList = new List<Command>();
-            return cList;
-        }
     }
 }
