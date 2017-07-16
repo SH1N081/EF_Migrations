@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 using EF_Migrations.Data;
+using EF_Migrations.Logic;
 
 namespace EF_Migrations
 {
     public partial class Form1 : Form
     {
-        Migration m = new Migration();
+        Transaction t = new Transaction();
         List<Process> pList = new List<Process>();
 
         public Form1()
@@ -44,19 +45,19 @@ namespace EF_Migrations
                 }
                 else if (chboxRestore.Checked && !chboxUpdate.Checked)
                 {
-                    m.Action = (int)Migration.actions.Restore;
+                    t.Action = (int)Functions.Actions.Restore;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Restore dependencies";
                 }
                 else if (!chboxRestore.Checked && chboxUpdate.Checked)
                 {
-                    m.Action = (int)Migration.actions.Update;
+                    t.Action = (int)Functions.Actions.Update;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Update EF database";
                 }
                 else if (chboxRestore.Checked && chboxUpdate.Checked)
                 {
-                    m.Action = (int)Migration.actions.RestoreUpdate;
+                    t.Action = (int)Functions.Actions.RestoreUpdate;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Restore dependencies and update EF database";
                 }
@@ -65,25 +66,25 @@ namespace EF_Migrations
             {
                 if (!chboxRestore.Checked && !chboxUpdate.Checked)
                 {
-                    m.Action = (int)Migration.actions.Migrate;
+                    t.Action = (int)Functions.Actions.Migrate;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Create migration";
                 }
                 else if (chboxRestore.Checked && !chboxUpdate.Checked)
                 {
-                    m.Action = (int)Migration.actions.RestoreMigrate;
+                    t.Action = (int)Functions.Actions.RestoreMigrate;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Restore dependencies and create migration";
                 }
                 else if (!chboxRestore.Checked && chboxUpdate.Checked)
                 {
-                    m.Action = (int)Migration.actions.MigrateUpdate;
+                    t.Action = (int)Functions.Actions.MigrateUpdate;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Create migration and update EF database";
                 }
                 else if (chboxRestore.Checked && chboxUpdate.Checked)
                 {
-                    m.Action = (int)Migration.actions.RestoreMigrateUpdate;
+                    t.Action = (int)Functions.Actions.RestoreMigrateUpdate;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Restore dependencies, create migration and update EF database";
                 }
@@ -258,11 +259,7 @@ namespace EF_Migrations
 
         private void btnMainAction_Click(object sender, EventArgs e)
         {
-            pList = m.createProcessList();
-            foreach (Process p in pList)
-            {
-                executeCommandAsync(p);
-            }
+            
         }
 
         private void rtboxOutput_TextChanged(object sender, EventArgs e)

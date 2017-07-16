@@ -10,13 +10,44 @@ namespace EF_Migrations.Logic
 {
     class Functions
     {
-        Migration m = new Migration();
+        public enum Actions
+        {
+            None,
+            Restore,
+            Migrate,
+            RestoreUpdate,
+            RestoreMigrate,
+            RestoreMigrateUpdate,
+            MigrateUpdate,
+            Update
+        }
 
-        public Process createProcess(string path, List<string> commands)
+        //CREATE PROCESS
+        public Process createProcess(Command command)
         {
             Process p = new Process();
-            return p;
-            
+            return p;            
+        }
+
+        //CREATE PROCESS LIST
+        public List<Process> createProcessList(List<Command> commands)
+        {
+            List<Process> pList = new List<Process>();
+            return pList;
+        }
+
+        //CREATE COMMAND
+        public Command createCommand(Transaction t)
+        {
+            Command c = new Command();
+            return c;
+        }
+
+        //CREATE COMMAND LIST
+        public List<Command> createCommandList(Transaction t)
+        {
+            List<Command> cList = new List<Command>();
+            return cList;
         }
     }
 }

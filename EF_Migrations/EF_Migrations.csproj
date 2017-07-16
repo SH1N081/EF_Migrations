@@ -45,7 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Migration.cs" />
+    <Compile Include="Data\Command.cs" />
+    <Compile Include="Data\Transaction.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
