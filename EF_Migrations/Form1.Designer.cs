@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.lblProjectPath = new System.Windows.Forms.Label();
-            this.tbxProjectPath = new System.Windows.Forms.TextBox();
+            this.txtProjectPath = new System.Windows.Forms.TextBox();
             this.btnProjectPath = new System.Windows.Forms.Button();
             this.lblMigrationName = new System.Windows.Forms.Label();
-            this.tboxMigrationName = new System.Windows.Forms.TextBox();
+            this.txtMigrationName = new System.Windows.Forms.TextBox();
             this.gboxOptions = new System.Windows.Forms.GroupBox();
-            this.chboxUpdate = new System.Windows.Forms.CheckBox();
-            this.chboxRestore = new System.Windows.Forms.CheckBox();
+            this.chkUpdate = new System.Windows.Forms.CheckBox();
+            this.chkRestore = new System.Windows.Forms.CheckBox();
             this.btnMainAction = new System.Windows.Forms.Button();
             this.btnClearAll = new System.Windows.Forms.Button();
-            this.rtboxOutput = new System.Windows.Forms.RichTextBox();
+            this.rtxOutput = new System.Windows.Forms.RichTextBox();
             this.btnClearOutput = new System.Windows.Forms.Button();
             this.btnHelp = new System.Windows.Forms.Button();
             this.gboxOptions.SuspendLayout();
@@ -53,17 +53,17 @@
             this.lblProjectPath.TabIndex = 0;
             this.lblProjectPath.Text = "Project Path";
             // 
-            // tbxProjectPath
+            // txtProjectPath
             // 
-            this.tbxProjectPath.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.tbxProjectPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbxProjectPath.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.tbxProjectPath.ForeColor = System.Drawing.Color.White;
-            this.tbxProjectPath.Location = new System.Drawing.Point(13, 30);
-            this.tbxProjectPath.Name = "tbxProjectPath";
-            this.tbxProjectPath.Size = new System.Drawing.Size(365, 21);
-            this.tbxProjectPath.TabIndex = 1;
-            this.tbxProjectPath.TextChanged += new System.EventHandler(this.tbxProjectPath_TextChanged);
+            this.txtProjectPath.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtProjectPath.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtProjectPath.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.txtProjectPath.ForeColor = System.Drawing.Color.White;
+            this.txtProjectPath.Location = new System.Drawing.Point(13, 30);
+            this.txtProjectPath.Name = "txtProjectPath";
+            this.txtProjectPath.Size = new System.Drawing.Size(365, 21);
+            this.txtProjectPath.TabIndex = 1;
+            this.txtProjectPath.TextChanged += new System.EventHandler(this.ProjectPath_TextChanged);
             // 
             // btnProjectPath
             // 
@@ -75,7 +75,7 @@
             this.btnProjectPath.TabIndex = 2;
             this.btnProjectPath.Text = "Browse...";
             this.btnProjectPath.UseVisualStyleBackColor = false;
-            this.btnProjectPath.Click += new System.EventHandler(this.btnProjectPath_Click);
+            this.btnProjectPath.Click += new System.EventHandler(this.ProjectPathButton_Click);
             // 
             // lblMigrationName
             // 
@@ -86,22 +86,22 @@
             this.lblMigrationName.TabIndex = 3;
             this.lblMigrationName.Text = "Migration Name";
             // 
-            // tboxMigrationName
+            // txtMigrationName
             // 
-            this.tboxMigrationName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.tboxMigrationName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tboxMigrationName.Enabled = false;
-            this.tboxMigrationName.ForeColor = System.Drawing.Color.White;
-            this.tboxMigrationName.Location = new System.Drawing.Point(13, 92);
-            this.tboxMigrationName.Name = "tboxMigrationName";
-            this.tboxMigrationName.Size = new System.Drawing.Size(365, 21);
-            this.tboxMigrationName.TabIndex = 4;
-            this.tboxMigrationName.TextChanged += new System.EventHandler(this.tboxMigrationName_TextChanged);
+            this.txtMigrationName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.txtMigrationName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtMigrationName.Enabled = false;
+            this.txtMigrationName.ForeColor = System.Drawing.Color.White;
+            this.txtMigrationName.Location = new System.Drawing.Point(13, 92);
+            this.txtMigrationName.Name = "txtMigrationName";
+            this.txtMigrationName.Size = new System.Drawing.Size(365, 21);
+            this.txtMigrationName.TabIndex = 4;
+            this.txtMigrationName.TextChanged += new System.EventHandler(this.MigrationName_TextChanged);
             // 
             // gboxOptions
             // 
-            this.gboxOptions.Controls.Add(this.chboxUpdate);
-            this.gboxOptions.Controls.Add(this.chboxRestore);
+            this.gboxOptions.Controls.Add(this.chkUpdate);
+            this.gboxOptions.Controls.Add(this.chkRestore);
             this.gboxOptions.ForeColor = System.Drawing.Color.White;
             this.gboxOptions.Location = new System.Drawing.Point(13, 120);
             this.gboxOptions.Name = "gboxOptions";
@@ -110,29 +110,29 @@
             this.gboxOptions.TabStop = false;
             this.gboxOptions.Text = "Other actions";
             // 
-            // chboxUpdate
+            // chkUpdate
             // 
-            this.chboxUpdate.AutoSize = true;
-            this.chboxUpdate.Enabled = false;
-            this.chboxUpdate.Location = new System.Drawing.Point(164, 21);
-            this.chboxUpdate.Name = "chboxUpdate";
-            this.chboxUpdate.Size = new System.Drawing.Size(109, 17);
-            this.chboxUpdate.TabIndex = 1;
-            this.chboxUpdate.Text = "Update Database";
-            this.chboxUpdate.UseVisualStyleBackColor = true;
-            this.chboxUpdate.CheckedChanged += new System.EventHandler(this.chboxUpdate_CheckedChanged);
+            this.chkUpdate.AutoSize = true;
+            this.chkUpdate.Enabled = false;
+            this.chkUpdate.Location = new System.Drawing.Point(164, 21);
+            this.chkUpdate.Name = "chkUpdate";
+            this.chkUpdate.Size = new System.Drawing.Size(109, 17);
+            this.chkUpdate.TabIndex = 1;
+            this.chkUpdate.Text = "Update Database";
+            this.chkUpdate.UseVisualStyleBackColor = true;
+            this.chkUpdate.CheckedChanged += new System.EventHandler(this.Update_CheckedChanged);
             // 
-            // chboxRestore
+            // chkRestore
             // 
-            this.chboxRestore.AutoSize = true;
-            this.chboxRestore.Enabled = false;
-            this.chboxRestore.Location = new System.Drawing.Point(7, 21);
-            this.chboxRestore.Name = "chboxRestore";
-            this.chboxRestore.Size = new System.Drawing.Size(132, 17);
-            this.chboxRestore.TabIndex = 0;
-            this.chboxRestore.Text = "Restore dependencies";
-            this.chboxRestore.UseVisualStyleBackColor = true;
-            this.chboxRestore.CheckedChanged += new System.EventHandler(this.chboxRestore_CheckedChanged);
+            this.chkRestore.AutoSize = true;
+            this.chkRestore.Enabled = false;
+            this.chkRestore.Location = new System.Drawing.Point(7, 21);
+            this.chkRestore.Name = "chkRestore";
+            this.chkRestore.Size = new System.Drawing.Size(132, 17);
+            this.chkRestore.TabIndex = 0;
+            this.chkRestore.Text = "Restore dependencies";
+            this.chkRestore.UseVisualStyleBackColor = true;
+            this.chkRestore.CheckedChanged += new System.EventHandler(this.Restore_CheckedChanged);
             // 
             // btnMainAction
             // 
@@ -144,7 +144,7 @@
             this.btnMainAction.Size = new System.Drawing.Size(363, 23);
             this.btnMainAction.TabIndex = 6;
             this.btnMainAction.UseVisualStyleBackColor = false;
-            this.btnMainAction.Click += new System.EventHandler(this.btnMainAction_Click);
+            this.btnMainAction.Click += new System.EventHandler(this.MainActionButton_Click);
             // 
             // btnClearAll
             // 
@@ -156,21 +156,21 @@
             this.btnClearAll.TabIndex = 7;
             this.btnClearAll.Text = "Clear all fields";
             this.btnClearAll.UseVisualStyleBackColor = true;
-            this.btnClearAll.Click += new System.EventHandler(this.btnClearAll_Click);
+            this.btnClearAll.Click += new System.EventHandler(this.ClearAllButton_Click);
             // 
-            // rtboxOutput
+            // rtxOutput
             // 
-            this.rtboxOutput.BackColor = System.Drawing.Color.Black;
-            this.rtboxOutput.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtboxOutput.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtboxOutput.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.rtboxOutput.Location = new System.Drawing.Point(13, 235);
-            this.rtboxOutput.Name = "rtboxOutput";
-            this.rtboxOutput.ReadOnly = true;
-            this.rtboxOutput.Size = new System.Drawing.Size(447, 337);
-            this.rtboxOutput.TabIndex = 8;
-            this.rtboxOutput.Text = "Console output >>";
-            this.rtboxOutput.TextChanged += new System.EventHandler(this.rtboxOutput_TextChanged);
+            this.rtxOutput.BackColor = System.Drawing.Color.Black;
+            this.rtxOutput.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.rtxOutput.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtxOutput.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.rtxOutput.Location = new System.Drawing.Point(13, 235);
+            this.rtxOutput.Name = "rtxOutput";
+            this.rtxOutput.ReadOnly = true;
+            this.rtxOutput.Size = new System.Drawing.Size(447, 337);
+            this.rtxOutput.TabIndex = 8;
+            this.rtxOutput.Text = "Console output >>";
+            this.rtxOutput.TextChanged += new System.EventHandler(this.Output_TextChanged);
             // 
             // btnClearOutput
             // 
@@ -182,7 +182,7 @@
             this.btnClearOutput.TabIndex = 9;
             this.btnClearOutput.Text = "Clear Output";
             this.btnClearOutput.UseVisualStyleBackColor = true;
-            this.btnClearOutput.Click += new System.EventHandler(this.btnClearOutput_Click);
+            this.btnClearOutput.Click += new System.EventHandler(this.ClearOutputButton_Click);
             // 
             // btnHelp
             // 
@@ -193,7 +193,7 @@
             this.btnHelp.TabIndex = 10;
             this.btnHelp.Text = "?";
             this.btnHelp.UseVisualStyleBackColor = true;
-            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
+            this.btnHelp.Click += new System.EventHandler(this.HelpButton_Click);
             // 
             // Form1
             // 
@@ -203,14 +203,14 @@
             this.ClientSize = new System.Drawing.Size(472, 584);
             this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.btnClearOutput);
-            this.Controls.Add(this.rtboxOutput);
+            this.Controls.Add(this.rtxOutput);
             this.Controls.Add(this.btnClearAll);
             this.Controls.Add(this.btnMainAction);
             this.Controls.Add(this.gboxOptions);
-            this.Controls.Add(this.tboxMigrationName);
+            this.Controls.Add(this.txtMigrationName);
             this.Controls.Add(this.lblMigrationName);
             this.Controls.Add(this.btnProjectPath);
-            this.Controls.Add(this.tbxProjectPath);
+            this.Controls.Add(this.txtProjectPath);
             this.Controls.Add(this.lblProjectPath);
             this.Font = new System.Drawing.Font("Calibri", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.White;
@@ -230,16 +230,16 @@
         #endregion
 
         private System.Windows.Forms.Label lblProjectPath;
-        private System.Windows.Forms.TextBox tbxProjectPath;
+        private System.Windows.Forms.TextBox txtProjectPath;
         private System.Windows.Forms.Button btnProjectPath;
         private System.Windows.Forms.Label lblMigrationName;
-        private System.Windows.Forms.TextBox tboxMigrationName;
+        private System.Windows.Forms.TextBox txtMigrationName;
         private System.Windows.Forms.GroupBox gboxOptions;
-        private System.Windows.Forms.CheckBox chboxUpdate;
-        private System.Windows.Forms.CheckBox chboxRestore;
+        private System.Windows.Forms.CheckBox chkUpdate;
+        private System.Windows.Forms.CheckBox chkRestore;
         private System.Windows.Forms.Button btnMainAction;
         private System.Windows.Forms.Button btnClearAll;
-        private System.Windows.Forms.RichTextBox rtboxOutput;
+        private System.Windows.Forms.RichTextBox rtxOutput;
         private System.Windows.Forms.Button btnClearOutput;
         private System.Windows.Forms.Button btnHelp;
     }

@@ -13,6 +13,6 @@ namespace EF_Migrations.Data
         public string MigrationName { get; set; }
         public int Action { get; set; }
         public List<Command> Commands { get; set; }
-        public List<Process> processList { get; set; }
+        public List<Process> ProcessList { get; set; }
     }
 }

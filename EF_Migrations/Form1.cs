@@ -25,64 +25,68 @@ namespace EF_Migrations
 
         #region FUNCTIONS
 
-        public void clearAll()
+        public void ClearAll()
         {
-            tbxProjectPath.Text = "";
-            tboxMigrationName.Text = "";
-            chboxRestore.Checked = false;
-            chboxUpdate.Checked = false;
-            rtboxOutput.Text = "Console output >>";
+            txtProjectPath.Text = "";
+            txtMigrationName.Text = "";
+            chkRestore.Checked = false;
+            chkUpdate.Checked = false;
+            rtxOutput.Text = "Console output >>";
+            t = new Transaction();
         }
 
-        public void checkMainAction()
+        public void CheckMainAction()
         {
-            if (string.IsNullOrEmpty(tboxMigrationName.Text))
+            if (string.IsNullOrEmpty(txtMigrationName.Text))
             {
-                if (!chboxRestore.Checked && !chboxUpdate.Checked)
+                if (!chkRestore.Checked && !chkUpdate.Checked)
                 {
+                    t.Action = (int)Functions.Actions.None;
                     btnMainAction.Enabled = false;
                     btnMainAction.Text = "";
                 }
-                else if (chboxRestore.Checked && !chboxUpdate.Checked)
+                else if (chkRestore.Checked && !chkUpdate.Checked)
                 {
                     t.Action = (int)Functions.Actions.Restore;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Restore dependencies";
                 }
-                else if (!chboxRestore.Checked && chboxUpdate.Checked)
+                else if (!chkRestore.Checked && chkUpdate.Checked)
                 {
                     t.Action = (int)Functions.Actions.Update;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Update EF database";
                 }
-                else if (chboxRestore.Checked && chboxUpdate.Checked)
+                else if (chkRestore.Checked && chkUpdate.Checked)
                 {
                     t.Action = (int)Functions.Actions.RestoreUpdate;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Restore dependencies and update EF database";
                 }
             }
-            else if (!string.IsNullOrEmpty(tboxMigrationName.Text))
+            else if (!string.IsNullOrEmpty(txtMigrationName.Text))
             {
-                if (!chboxRestore.Checked && !chboxUpdate.Checked)
+                t.MigrationName = txtMigrationName.Text;
+
+                if (!chkRestore.Checked && !chkUpdate.Checked)
                 {
                     t.Action = (int)Functions.Actions.Migrate;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Create migration";
                 }
-                else if (chboxRestore.Checked && !chboxUpdate.Checked)
+                else if (chkRestore.Checked && !chkUpdate.Checked)
                 {
                     t.Action = (int)Functions.Actions.RestoreMigrate;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Restore dependencies and create migration";
                 }
-                else if (!chboxRestore.Checked && chboxUpdate.Checked)
+                else if (!chkRestore.Checked && chkUpdate.Checked)
                 {
                     t.Action = (int)Functions.Actions.MigrateUpdate;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Create migration and update EF database";
                 }
-                else if (chboxRestore.Checked && chboxUpdate.Checked)
+                else if (chkRestore.Checked && chkUpdate.Checked)
                 {
                     t.Action = (int)Functions.Actions.RestoreMigrateUpdate;
                     btnMainAction.Enabled = true;
@@ -91,31 +95,31 @@ namespace EF_Migrations
             }
         }
 
-        public void checkClearAll()
+        public void CheckClearAll()
         {
-            if (tbxProjectPath.Text == "" && tboxMigrationName.Text == "" && !chboxRestore.Checked && !chboxUpdate.Checked)
+            if (txtProjectPath.Text == "" && txtMigrationName.Text == "" && !chkRestore.Checked && !chkUpdate.Checked)
             {
                 btnClearAll.Enabled = false;
             }
-            else if (tbxProjectPath.Text != "" || tboxMigrationName.Text != "" || chboxRestore.Checked || chboxUpdate.Checked)
+            else if (txtProjectPath.Text != "" || txtMigrationName.Text != "" || chkRestore.Checked || chkUpdate.Checked)
             {
                 btnClearAll.Enabled = true;
             }
         }
 
-        public void checkClearOutput()
+        public void CheckClearOutput()
         {
-            if (rtboxOutput.Text != "Console output >>")
+            if (rtxOutput.Text != "Console output >>")
             {
                 btnClearOutput.Enabled = true;
             }
-            else if (rtboxOutput.Text == "Console output >>")
+            else if (rtxOutput.Text == "Console output >>")
             {
                 btnClearOutput.Enabled = false;
             }
         }
 
-        public void showHelp()
+        public void ShowHelp()
         {
             MessageBox.Show(
                 "This is a simple application for performing .NET Entity Framework Migrations.\r\n" +
@@ -142,24 +146,26 @@ namespace EF_Migrations
                 );
         }
 
-        public void executeCommandAsync(Process process)
+        public void ExecuteCommandAsync(Process process)
         {
             try
             {
+                StringBuilder output = new StringBuilder();
+                StringBuilder error = new StringBuilder();
                 Process p = process;
                 p.EnableRaisingEvents = true;
                 p.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
                 {
                     if (!string.IsNullOrEmpty(e.Data))
                     {
-                        rtboxOutput.Text = e.Data;
+                        output.Append(e.Data);
                     }
                 });
                 p.ErrorDataReceived += new DataReceivedEventHandler((sender, e) =>
                 {
                     if (!string.IsNullOrEmpty(e.Data))
                     {
-                        MessageBox.Show(e.Data);
+                        error.Append(e.Data);
                     }
                 });
 
@@ -167,11 +173,16 @@ namespace EF_Migrations
 
                 p.BeginOutputReadLine();
                 p.BeginErrorReadLine();
+                p.WaitForExit();
+
+                rtxOutput.Text = output.ToString();
+                if (!string.IsNullOrEmpty(error.ToString()))
+                {
+                    rtxOutput.Text = error.ToString();
+                }
 
                 p.WaitForExit();
                 p.Close();
-
-                
             }
             catch (Exception ex)
             {
@@ -184,91 +195,94 @@ namespace EF_Migrations
         #region EVENTS
         private void Form1_Load(object sender, EventArgs e)
         {
-            showHelp();
+            ShowHelp();
         }
-                
-        private void tbxProjectPath_TextChanged(object sender, EventArgs e)
-        {
-            checkClearAll();
-            checkMainAction();
 
-            if (tbxProjectPath.Text == "")
+        private void ProjectPath_TextChanged(object sender, EventArgs e)
+        {
+            CheckClearAll();
+            CheckMainAction();
+
+            if (txtProjectPath.Text == "")
             {
-                tboxMigrationName.Enabled = false;
-                chboxRestore.Enabled = false;
-                chboxUpdate.Enabled = false;
+                txtMigrationName.Enabled = false;
+                chkRestore.Enabled = false;
+                chkUpdate.Enabled = false;
                 btnMainAction.Enabled = false;
             }
-            else if (tbxProjectPath.Text != "")
+            else if (txtProjectPath.Text != "")
             {
-                tboxMigrationName.Enabled = true;
-                chboxRestore.Enabled = true;
-                chboxUpdate.Enabled = true;
-                if (tboxMigrationName.Text != "" || chboxRestore.Checked || chboxUpdate.Checked)
+                txtMigrationName.Enabled = true;
+                chkRestore.Enabled = true;
+                chkUpdate.Enabled = true;
+                if (txtMigrationName.Text != "" || chkRestore.Checked || chkUpdate.Checked)
                 {
                     btnMainAction.Enabled = true;
                 }
-                else if (tboxMigrationName.Text == "" && !chboxRestore.Checked && !chboxUpdate.Checked)
+                else if (txtMigrationName.Text == "" && !chkRestore.Checked && !chkUpdate.Checked)
                 {
                     btnMainAction.Enabled = false;
                 }
             }
         }
 
-        private void tboxMigrationName_TextChanged(object sender, EventArgs e)
+        private void MigrationName_TextChanged(object sender, EventArgs e)
         {
-            checkClearAll();
-            checkMainAction();
+            CheckClearAll();
+            CheckMainAction();
         }
 
-        private void chboxRestore_CheckedChanged(object sender, EventArgs e)
+        private void Restore_CheckedChanged(object sender, EventArgs e)
         {
-            checkClearAll();
-            checkMainAction();
+            CheckClearAll();
+            CheckMainAction();
         }
 
-        private void chboxUpdate_CheckedChanged(object sender, EventArgs e)
+        private void Update_CheckedChanged(object sender, EventArgs e)
         {
-            checkClearAll();
-            checkMainAction();
+            CheckClearAll();
+            CheckMainAction();
         }
 
-        private void btnProjectPath_Click(object sender, EventArgs e)
+        private void ProjectPathButton_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog fbd = new FolderBrowserDialog();
-            fbd.Description = "Select project folder";
-            fbd.ShowNewFolderButton = false;
-            fbd.RootFolder = Environment.SpecialFolder.MyComputer;
+            FolderBrowserDialog fbd = new FolderBrowserDialog()
+            {
+                Description = "Select project folder",
+                ShowNewFolderButton = false,
+                RootFolder = Environment.SpecialFolder.MyComputer
+            };
 
             if (fbd.ShowDialog() == DialogResult.OK)
             {
-                tbxProjectPath.Text = fbd.SelectedPath;
+                txtProjectPath.Text = fbd.SelectedPath;
+                t.ProjectPath = fbd.SelectedPath;
             }
         }
 
-        private void btnClearAll_Click(object sender, EventArgs e)
+        private void ClearAllButton_Click(object sender, EventArgs e)
         {
-            clearAll();
+            ClearAll();
         }
 
-        private void btnClearOutput_Click(object sender, EventArgs e)
+        private void ClearOutputButton_Click(object sender, EventArgs e)
         {
-            rtboxOutput.Clear();
-            rtboxOutput.Text = "Console output >>";
+            rtxOutput.Clear();
+            rtxOutput.Text = "Console output >>";
         }
 
-        private void btnMainAction_Click(object sender, EventArgs e)
+        private void MainActionButton_Click(object sender, EventArgs e)
         {
             
         }
 
-        private void rtboxOutput_TextChanged(object sender, EventArgs e)
+        private void Output_TextChanged(object sender, EventArgs e)
         {
-            checkClearOutput();
+            CheckClearOutput();
         }
-        private void btnHelp_Click(object sender, EventArgs e)
+        private void HelpButton_Click(object sender, EventArgs e)
         {
-            showHelp();
+            ShowHelp();
         }
 
         #endregion EVENTS

@@ -23,7 +23,7 @@ namespace EF_Migrations.Logic
         }
 
         //CREATE COMMAND LIST
-        public List<Command> createCommandList(Transaction t)
+        public List<Command> CreateCommandList(Transaction t)
         {
             List<Command> cList = new List<Command>();
             Command restore = new Command()
@@ -41,6 +41,9 @@ namespace EF_Migrations.Logic
 
             switch (t.Action)
             {
+                case (int)Actions.None:
+                    cList.Clear();
+                    break;
                 case (int)Actions.Restore:
                     cList.Clear();
                     cList.Add(restore);
@@ -82,16 +85,36 @@ namespace EF_Migrations.Logic
         }
 
         //CREATE PROCESS
-        public Process createProcess(Command command)
+        public Process CreateProcess(string path, Command command)
         {
-            Process p = new Process();
+            ProcessStartInfo psi = new ProcessStartInfo()
+            {
+                CreateNoWindow = true,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardInput = true,
+                RedirectStandardError = true,
+                FileName = "cmd.exe",
+                Domain = path,
+                Arguments = command.Text
+            };
+            Process p = new Process()
+            {
+                StartInfo = psi
+            };
             return p;
         }
 
         //CREATE PROCESS LIST
-        public List<Process> createProcessList(List<Command> commands)
+        public List<Process> CreateProcessList(string path, List<Command> commands)
         {
             List<Process> pList = new List<Process>();
+
+            foreach (Command c in commands)
+            {
+                Process p = CreateProcess(path, c);
+                pList.Add(p);
+            }
             return pList;
         }
 
