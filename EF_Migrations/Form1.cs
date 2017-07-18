@@ -97,11 +97,11 @@ namespace EF_Migrations
 
         public void CheckClearAll()
         {
-            if (txtProjectPath.Text == "" && txtMigrationName.Text == "" && !chkRestore.Checked && !chkUpdate.Checked)
+            if (string.IsNullOrEmpty(txtProjectPath.Text) && string.IsNullOrEmpty(txtMigrationName.Text) && !chkRestore.Checked && !chkUpdate.Checked)
             {
                 btnClearAll.Enabled = false;
             }
-            else if (txtProjectPath.Text != "" || txtMigrationName.Text != "" || chkRestore.Checked || chkUpdate.Checked)
+            else if (!string.IsNullOrEmpty(txtProjectPath.Text) || !string.IsNullOrEmpty(txtMigrationName.Text) || chkRestore.Checked || chkUpdate.Checked)
             {
                 btnClearAll.Enabled = true;
             }
@@ -178,7 +178,7 @@ namespace EF_Migrations
                 rtxOutput.Text = output.ToString();
                 if (!string.IsNullOrEmpty(error.ToString()))
                 {
-                    rtxOutput.Text = error.ToString();
+                    MessageBox.Show(error.ToString());
                 }
 
                 p.WaitForExit();
@@ -256,7 +256,6 @@ namespace EF_Migrations
             if (fbd.ShowDialog() == DialogResult.OK)
             {
                 txtProjectPath.Text = fbd.SelectedPath;
-                t.ProjectPath = fbd.SelectedPath;
             }
         }
 
@@ -271,11 +270,6 @@ namespace EF_Migrations
             rtxOutput.Text = "Console output >>";
         }
 
-        private void MainActionButton_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void Output_TextChanged(object sender, EventArgs e)
         {
             CheckClearOutput();
@@ -283,6 +277,20 @@ namespace EF_Migrations
         private void HelpButton_Click(object sender, EventArgs e)
         {
             ShowHelp();
+        }
+
+        // MAIN BUTTON CLICK EVENT
+        private void MainActionButton_Click(object sender, EventArgs e)
+        {
+            Functions f = new Functions();
+            t.ProjectPath = txtProjectPath.Text;
+            t.Commands = f.CreateCommandList(t);
+            t.ProcessList = f.CreateProcessList(t.ProjectPath, t.Commands);
+            List<Process> pList = t.ProcessList;
+            foreach (Process p in pList)
+            {
+                ExecuteCommandAsync(p);
+            }
         }
 
         #endregion EVENTS
