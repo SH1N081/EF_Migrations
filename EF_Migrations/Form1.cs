@@ -154,27 +154,36 @@ namespace EF_Migrations
                 StringBuilder error = new StringBuilder();
                 Process p = process;
                 p.EnableRaisingEvents = true;
-                p.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
-                {
-                    if (!string.IsNullOrEmpty(e.Data))
-                    {
-                        output.Append(e.Data);
-                        rtxOutput.Text = output.ToString();
-                    }
-                });
-                p.ErrorDataReceived += new DataReceivedEventHandler((sender, e) =>
-                {
-                    if (!string.IsNullOrEmpty(e.Data))
-                    {
-                        error.Append(e.Data);
-                        rtxOutput.Text = error.ToString();
-                    }
-                });
+                //p.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
+                //{
+                //    if (!string.IsNullOrEmpty(e.Data))
+                //    {
+                //        output.Append(e.Data);
+                //        rtxOutput.Text = output.ToString();
+                //    }
+                //});
+                //p.ErrorDataReceived += new DataReceivedEventHandler((sender, e) =>
+                //{
+                //    if (!string.IsNullOrEmpty(e.Data))
+                //    {
+                //        error.Append(e.Data);
+                //        rtxOutput.Text = error.ToString();
+                //    }
+                //});
 
                 p.Start();
 
                 p.BeginOutputReadLine();
                 p.BeginErrorReadLine();
+
+                if (!string.IsNullOrEmpty(p.StandardOutput.ToString()))
+                {
+                    rtxOutput.Text = p.StandardOutput.ToString();
+                }
+                if (!string.IsNullOrEmpty(p.StandardError.ToString()))
+                {
+                    rtxOutput.Text = p.StandardError.ToString();
+                }
 
                 //rtxOutput.Text = output.ToString();
                 //if (!string.IsNullOrEmpty(error.ToString()))
