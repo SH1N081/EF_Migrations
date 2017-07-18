@@ -159,6 +159,7 @@ namespace EF_Migrations
                     if (!string.IsNullOrEmpty(e.Data))
                     {
                         output.Append(e.Data);
+                        rtxOutput.Text = output.ToString();
                     }
                 });
                 p.ErrorDataReceived += new DataReceivedEventHandler((sender, e) =>
@@ -166,6 +167,7 @@ namespace EF_Migrations
                     if (!string.IsNullOrEmpty(e.Data))
                     {
                         error.Append(e.Data);
+                        rtxOutput.Text = error.ToString();
                     }
                 });
 
@@ -173,13 +175,12 @@ namespace EF_Migrations
 
                 p.BeginOutputReadLine();
                 p.BeginErrorReadLine();
-                p.WaitForExit();
 
-                rtxOutput.Text = output.ToString();
-                if (!string.IsNullOrEmpty(error.ToString()))
-                {
-                    MessageBox.Show(error.ToString());
-                }
+                //rtxOutput.Text = output.ToString();
+                //if (!string.IsNullOrEmpty(error.ToString()))
+                //{
+                //    MessageBox.Show(error.ToString());
+                //}
 
                 p.WaitForExit();
                 p.Close();
