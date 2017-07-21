@@ -41,25 +41,25 @@ namespace EF_Migrations
             {
                 if (!chkRestore.Checked && !chkUpdate.Checked)
                 {
-                    t.Action = (int)Functions.Actions.None;
+                    t.Action = (int)Methods.Actions.None;
                     btnMainAction.Enabled = false;
                     btnMainAction.Text = "";
                 }
                 else if (chkRestore.Checked && !chkUpdate.Checked)
                 {
-                    t.Action = (int)Functions.Actions.Restore;
+                    t.Action = (int)Methods.Actions.Restore;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Restore dependencies";
                 }
                 else if (!chkRestore.Checked && chkUpdate.Checked)
                 {
-                    t.Action = (int)Functions.Actions.Update;
+                    t.Action = (int)Methods.Actions.Update;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Update EF database";
                 }
                 else if (chkRestore.Checked && chkUpdate.Checked)
                 {
-                    t.Action = (int)Functions.Actions.RestoreUpdate;
+                    t.Action = (int)Methods.Actions.RestoreUpdate;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Restore dependencies and update EF database";
                 }
@@ -70,25 +70,25 @@ namespace EF_Migrations
 
                 if (!chkRestore.Checked && !chkUpdate.Checked)
                 {
-                    t.Action = (int)Functions.Actions.Migrate;
+                    t.Action = (int)Methods.Actions.Migrate;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Create migration";
                 }
                 else if (chkRestore.Checked && !chkUpdate.Checked)
                 {
-                    t.Action = (int)Functions.Actions.RestoreMigrate;
+                    t.Action = (int)Methods.Actions.RestoreMigrate;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Restore dependencies and create migration";
                 }
                 else if (!chkRestore.Checked && chkUpdate.Checked)
                 {
-                    t.Action = (int)Functions.Actions.MigrateUpdate;
+                    t.Action = (int)Methods.Actions.MigrateUpdate;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Create migration and update EF database";
                 }
                 else if (chkRestore.Checked && chkUpdate.Checked)
                 {
-                    t.Action = (int)Functions.Actions.RestoreMigrateUpdate;
+                    t.Action = (int)Methods.Actions.RestoreMigrateUpdate;
                     btnMainAction.Enabled = true;
                     btnMainAction.Text = "Restore dependencies, create migration and update EF database";
                 }
@@ -292,7 +292,7 @@ namespace EF_Migrations
         // MAIN BUTTON CLICK EVENT
         private void MainActionButton_Click(object sender, EventArgs e)
         {
-            Functions f = new Functions();
+            Methods f = new Methods();
             t.ProjectPath = txtProjectPath.Text;
             t.Commands = f.CreateCommandList(t);
             t.ProcessList = f.CreateProcessList(t.ProjectPath, t.Commands);

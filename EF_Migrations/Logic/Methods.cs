@@ -8,7 +8,7 @@ using EF_Migrations.Data;
 
 namespace EF_Migrations.Logic
 {
-    class Functions
+    class Methods
     {
         public enum Actions
         {
