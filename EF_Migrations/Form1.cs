@@ -16,14 +16,13 @@ namespace EF_Migrations
     public partial class Form1 : Form
     {
         Transaction t = new Transaction();
-        List<Process> pList = new List<Process>();
 
         public Form1()
         {
             InitializeComponent();
         }
 
-        #region FUNCTIONS
+        #region METHODS
 
         public void ClearAll()
         {
@@ -146,53 +145,15 @@ namespace EF_Migrations
                 );
         }
 
-        public void ExecuteCommandAsync(Process process)
+        public void ExecuteCommand(Process process)
         {
             try
             {
-                StringBuilder output = new StringBuilder();
-                StringBuilder error = new StringBuilder();
                 Process p = process;
-                p.EnableRaisingEvents = true;
-                //p.OutputDataReceived += new DataReceivedEventHandler((sender, e) =>
-                //{
-                //    if (!string.IsNullOrEmpty(e.Data))
-                //    {
-                //        output.Append(e.Data);
-                //        rtxOutput.Text = output.ToString();
-                //    }
-                //});
-                //p.ErrorDataReceived += new DataReceivedEventHandler((sender, e) =>
-                //{
-                //    if (!string.IsNullOrEmpty(e.Data))
-                //    {
-                //        error.Append(e.Data);
-                //        rtxOutput.Text = error.ToString();
-                //    }
-                //});
-
                 p.Start();
-
-                p.BeginOutputReadLine();
-                p.BeginErrorReadLine();
-
-                if (!string.IsNullOrEmpty(p.StandardOutput.ToString()))
-                {
-                    rtxOutput.Text = p.StandardOutput.ToString();
-                }
-                if (!string.IsNullOrEmpty(p.StandardError.ToString()))
-                {
-                    rtxOutput.Text = p.StandardError.ToString();
-                }
-
-                //rtxOutput.Text = output.ToString();
-                //if (!string.IsNullOrEmpty(error.ToString()))
-                //{
-                //    MessageBox.Show(error.ToString());
-                //}
-
+                string output = p.StandardOutput.ReadToEnd();
+                rtxOutput.AppendText("\n" + output);
                 p.WaitForExit();
-                p.Close();
             }
             catch (Exception ex)
             {
@@ -200,7 +161,7 @@ namespace EF_Migrations
             }
         }
 
-        #endregion FUNCTIONS
+        #endregion METHODS
 
         #region EVENTS
         private void Form1_Load(object sender, EventArgs e)
@@ -213,14 +174,14 @@ namespace EF_Migrations
             CheckClearAll();
             CheckMainAction();
 
-            if (txtProjectPath.Text == "")
+            if (string.IsNullOrEmpty(txtProjectPath.Text))
             {
                 txtMigrationName.Enabled = false;
                 chkRestore.Enabled = false;
                 chkUpdate.Enabled = false;
                 btnMainAction.Enabled = false;
             }
-            else if (txtProjectPath.Text != "")
+            else if (!string.IsNullOrEmpty(txtProjectPath.Text))
             {
                 txtMigrationName.Enabled = true;
                 chkRestore.Enabled = true;
@@ -292,14 +253,15 @@ namespace EF_Migrations
         // MAIN BUTTON CLICK EVENT
         private void MainActionButton_Click(object sender, EventArgs e)
         {
-            Methods f = new Methods();
+            Methods m = new Methods();
             t.ProjectPath = txtProjectPath.Text;
-            t.Commands = f.CreateCommandList(t);
-            t.ProcessList = f.CreateProcessList(t.ProjectPath, t.Commands);
+            t.Commands = m.CreateCommandList(t);
+            t.ProcessList = m.CreateProcessList(t.ProjectPath, t.Commands);
             List<Process> pList = t.ProcessList;
+            rtxOutput.Clear();
             foreach (Process p in pList)
             {
-                ExecuteCommandAsync(p);
+                ExecuteCommand(p);
             }
         }
 

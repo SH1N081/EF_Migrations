@@ -28,15 +28,15 @@ namespace EF_Migrations.Logic
             List<Command> cList = new List<Command>();
             Command restore = new Command()
             {
-                Text = "dotnet restore"
+                Text = "/c \"dotnet restore\""
             };
             Command migrate = new Command()
             {
-                Text = "dotnet ef migrations add " + t.MigrationName
+                Text = "/c \"dotnet ef migrations add \"" + t.MigrationName
             };
             Command update = new Command()
             {
-                Text = "dotnet ef database update"
+                Text = "/c \"dotnet ef database update\""
             };
 
             switch (t.Action)
@@ -92,10 +92,9 @@ namespace EF_Migrations.Logic
                 CreateNoWindow = true,
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
-                RedirectStandardInput = true,
                 RedirectStandardError = true,
                 FileName = "cmd.exe",
-                Domain = path,
+                WorkingDirectory = path,
                 Arguments = command.Text
             };
             Process p = new Process()
