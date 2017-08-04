@@ -122,6 +122,7 @@ namespace EF_Migrations
         {
             MessageBox.Show(
                 "This is a simple application for performing .NET Entity Framework Migrations.\r\n" +
+                "For this application to work with your project, you must first have the .NET Framework CLI tools reference added to your project file.\r\n" +
                 "3 actions affiliated with database migration can be performed in combination or separately.\r\n" +
                 "All actions require a project path to be selected - either input manually or by using the browse function.\r\n" +
                 "\r\n" +
