@@ -19,7 +19,8 @@ namespace EF_Migrations.Logic
             RestoreMigrate,
             RestoreMigrateUpdate,
             MigrateUpdate,
-            Update
+            Update,
+            Remove
         }
 
         //CREATE COMMAND LIST
@@ -37,6 +38,10 @@ namespace EF_Migrations.Logic
             Command update = new Command()
             {
                 Text = "/c \"dotnet ef database update\""
+            };
+            Command remove = new Command()
+            {
+                Text = "/c \"dotnet ef migrations remove\""
             };
 
             switch (t.Action)
@@ -76,6 +81,10 @@ namespace EF_Migrations.Logic
                     cList.Clear();
                     cList.Add(migrate);
                     cList.Add(update);
+                    break;
+                case (int)Actions.Remove:
+                    cList.Clear();
+                    cList.Add(remove);
                     break;
                 default:
                     cList.Clear();
