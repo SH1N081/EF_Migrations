@@ -134,6 +134,10 @@ namespace EF_Migrations
                 "CREATE MIGRATION\r\n" +
                 "If a migration name is entered in the text box, a migration will be created.\r\n" +
                 "\r\n" +
+                "REMOVE LATEST MIGRATION\r\n" +
+                "To remove the latest created migration, simply click this button.\r\n" +
+                "NOTE: If the database has been updated already this WILL NOT roll back those changes.\r\n" +
+                "\r\n" +
                 "COMBINATIONS\r\n" +
                 "All 3 actions may be combined in any way. IMPORTANT: if a migration name is entered, a migration will always be created.\r\n" +
                 "Text on the button will change to reflect the currently selected actions.\r\n" +
