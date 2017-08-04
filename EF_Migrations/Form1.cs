@@ -180,17 +180,20 @@ namespace EF_Migrations
                 chkRestore.Enabled = false;
                 chkUpdate.Enabled = false;
                 btnMainAction.Enabled = false;
+                btnRemove.Enabled = false;
             }
             else if (!string.IsNullOrEmpty(txtProjectPath.Text))
             {
                 txtMigrationName.Enabled = true;
                 chkRestore.Enabled = true;
                 chkUpdate.Enabled = true;
-                if (txtMigrationName.Text != "" || chkRestore.Checked || chkUpdate.Checked)
+                btnRemove.Enabled = true;
+
+                if (!string.IsNullOrEmpty(txtMigrationName.Text) || chkRestore.Checked || chkUpdate.Checked)
                 {
                     btnMainAction.Enabled = true;
                 }
-                else if (txtMigrationName.Text == "" && !chkRestore.Checked && !chkUpdate.Checked)
+                else if (string.IsNullOrEmpty(txtMigrationName.Text) && !chkRestore.Checked && !chkUpdate.Checked)
                 {
                     btnMainAction.Enabled = false;
                 }
@@ -255,6 +258,22 @@ namespace EF_Migrations
         {
             Methods m = new Methods();
             t.ProjectPath = txtProjectPath.Text;
+            t.Commands = m.CreateCommandList(t);
+            t.ProcessList = m.CreateProcessList(t.ProjectPath, t.Commands);
+            List<Process> pList = t.ProcessList;
+            rtxOutput.Clear();
+            foreach (Process p in pList)
+            {
+                ExecuteCommand(p);
+            }
+        }
+
+        //REMOVE BUTTON CLICK EVENT
+        private void RemoveMigration_Click(object sender, EventArgs e)
+        {
+            Methods m = new Methods();
+            t.ProjectPath = txtProjectPath.Text;
+            t.Action = (int)Methods.Actions.Remove;
             t.Commands = m.CreateCommandList(t);
             t.ProcessList = m.CreateProcessList(t.ProjectPath, t.Commands);
             List<Process> pList = t.ProcessList;

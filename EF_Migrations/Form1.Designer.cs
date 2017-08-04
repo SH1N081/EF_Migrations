@@ -41,6 +41,7 @@
             this.rtxOutput = new System.Windows.Forms.RichTextBox();
             this.btnClearOutput = new System.Windows.Forms.Button();
             this.btnHelp = new System.Windows.Forms.Button();
+            this.btnRemove = new System.Windows.Forms.Button();
             this.gboxOptions.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -195,12 +196,26 @@
             this.btnHelp.UseVisualStyleBackColor = true;
             this.btnHelp.Click += new System.EventHandler(this.HelpButton_Click);
             // 
+            // btnRemove
+            // 
+            this.btnRemove.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.btnRemove.Enabled = false;
+            this.btnRemove.ForeColor = System.Drawing.Color.Black;
+            this.btnRemove.Location = new System.Drawing.Point(243, 206);
+            this.btnRemove.Name = "btnRemove";
+            this.btnRemove.Size = new System.Drawing.Size(217, 23);
+            this.btnRemove.TabIndex = 11;
+            this.btnRemove.Text = "Remove latest migration";
+            this.btnRemove.UseVisualStyleBackColor = false;
+            this.btnRemove.Click += new System.EventHandler(this.RemoveMigration_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(472, 584);
+            this.Controls.Add(this.btnRemove);
             this.Controls.Add(this.btnHelp);
             this.Controls.Add(this.btnClearOutput);
             this.Controls.Add(this.rtxOutput);
@@ -242,6 +257,7 @@
         private System.Windows.Forms.RichTextBox rtxOutput;
         private System.Windows.Forms.Button btnClearOutput;
         private System.Windows.Forms.Button btnHelp;
+        private System.Windows.Forms.Button btnRemove;
     }
 }
 
